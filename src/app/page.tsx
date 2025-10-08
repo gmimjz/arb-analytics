@@ -1,3 +1,9 @@
+import { DataTable } from "@/app/(components)/DataTable";
+
 export default function Home() {
-  return <div>ARB Client</div>;
+  return (
+    <div>
+      <DataTable />
+    </div>
+  );
 }
