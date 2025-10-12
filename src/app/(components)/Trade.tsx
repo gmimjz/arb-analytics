@@ -43,7 +43,7 @@ export const Trade = ({
       {formatAmount(realizedAmountFrom, decimals[fromToken])}
       <TokenIcon token={fromToken} />
 
-      <FaArrowRightLong />
+      <FaArrowRightLong className="w-4 h-4" />
 
       {formatAmount(realizedAmountTo, decimals[toToken])}
       <TokenIcon token={toToken} />

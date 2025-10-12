@@ -22,7 +22,7 @@ export const HomePage = ({ initialIsAuthenticated, initialData }: Props) => {
   const handleAuth = async (token: string) => {
     await auth(token);
 
-    const data = await fetchData();
+    const data = await fetchData(0);
     if (data) {
       setTransactions(data.transactions);
       setIsAuthenticated(true);
@@ -33,7 +33,7 @@ export const HomePage = ({ initialIsAuthenticated, initialData }: Props) => {
     const interval = setInterval(async () => {
       setStartAfter(+Date.now());
 
-      const data = await fetchData(undefined, startAfter);
+      const data = await fetchData(startAfter);
       if (data) {
         setTransactions([...data.transactions, ...transactions]);
       } else {

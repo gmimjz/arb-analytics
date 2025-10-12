@@ -44,7 +44,7 @@ export const DataTable = ({ transactions }: Props) => {
             backTrade,
           }) => (
             <Table.Row key={createdAt?.toString()}>
-              <Table.Cell>
+              <Table.Cell className="whitespace-nowrap">
                 {formatDate(createdAt)}{" "}
                 <span className="hidden sm:inline">
                   {`(${formatDistanceToNow(new Date(createdAt), {
@@ -73,7 +73,7 @@ export const DataTable = ({ transactions }: Props) => {
                 />
               </Table.Cell>
               <Table.Cell>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 items-center whitespace-nowrap">
                   {formatAmount(frontTrade.fee, ECLIPSE_TOKEN_DECIMAL["ETH"])} (
                   {formatAmountWithPrice(
                     frontTrade.fee,
@@ -95,7 +95,7 @@ export const DataTable = ({ transactions }: Props) => {
                 </div>
               </Table.Cell>
               <Table.Cell>
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2 items-center whitespace-nowrap">
                   {frontTrade.realizedAmountFrom &&
                   backTrade.realizedAmountTo ? (
                     <>

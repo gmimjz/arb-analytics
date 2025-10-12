@@ -14,7 +14,7 @@ export const ExplorerLink = ({ txId, chain }: Props) => {
 
   return (
     <Link href={`${baseUrl}/${txId}`} target="_blank" rel="noopener noreferrer">
-      <FaArrowUpRightFromSquare />
+      <FaArrowUpRightFromSquare className="w-4 h-4" />
     </Link>
   );
 };

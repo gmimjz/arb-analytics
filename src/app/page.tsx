@@ -1,17 +1,21 @@
 import { HomePage } from "@/app/(pages)/HomePage";
-import { fetchData } from "@/app/(utils)/api";
+import { getData } from "@/app/(utils)/database";
 import { cookies } from "next/headers";
 
 export default async function Home() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("access_token");
 
-  const data = await fetchData(accessToken?.value ?? "");
+  if (accessToken?.value !== process.env.ACCESS_TOKEN) {
+    return (
+      <HomePage
+        initialIsAuthenticated={false}
+        initialData={{ transactions: [] }}
+      />
+    );
+  }
 
-  return (
-    <HomePage
-      initialIsAuthenticated={data !== null}
-      initialData={data ?? { transactions: [] }}
-    />
-  );
+  const data = await getData(0);
+
+  return <HomePage initialIsAuthenticated={true} initialData={data} />;
 }
