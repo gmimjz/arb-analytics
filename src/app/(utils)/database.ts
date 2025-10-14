@@ -25,7 +25,9 @@ export const getDailyProfitChart = async () => {
       trade.frontTrade as Trade,
       trade.backTrade as Trade,
       trade.profitToken,
-      trade.profitTokenPrice ?? 0
+      trade.profitTokenPrice ?? 0,
+      trade.intermediateToken,
+      trade.intermediateTokenPrice ?? 0
     ),
     date: trade.createdAt.toISOString().slice(0, 10),
   }));

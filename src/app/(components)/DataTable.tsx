@@ -39,6 +39,7 @@ export const DataTable = ({ transactions }: Props) => {
             profitToken,
             profitTokenPrice,
             intermediateToken,
+            intermediateTokenPrice,
             createdAt,
             frontTrade,
             backTrade,
@@ -126,7 +127,9 @@ export const DataTable = ({ transactions }: Props) => {
                     frontTrade,
                     backTrade,
                     profitToken,
-                    profitTokenPrice
+                    profitTokenPrice,
+                    intermediateToken,
+                    intermediateTokenPrice
                   )}
                   $
                 </>

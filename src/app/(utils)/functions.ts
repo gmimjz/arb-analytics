@@ -44,7 +44,9 @@ export const calculatePNLWithFees = (
   frontTrade: Trade,
   backTrade: Trade,
   profitToken: string,
-  profitTokenPrice: number
+  profitTokenPrice: number,
+  intermediateToken: string,
+  intermediateTokenPrice: number
 ) => {
   const frontFee = calculateAmountWithPrice(
     frontTrade.fee,
@@ -70,19 +72,33 @@ export const calculatePNLWithFees = (
         )
       : 0;
 
-  return -frontFee - backFee + profit;
+  const slippageProfit =
+    frontTrade.realizedAmountTo && backTrade.realizedAmountFrom
+      ? calculateAmountWithPrice(
+          frontTrade.realizedAmountTo - backTrade.realizedAmountFrom,
+          ECLIPSE_TOKEN_DECIMAL[intermediateToken],
+          intermediateToken,
+          intermediateTokenPrice
+        )
+      : 0;
+
+  return -frontFee - backFee + profit + slippageProfit;
 };
 
 export const formatPNLWithFees = (
   frontTrade: Trade,
   backTrade: Trade,
   profitToken: string,
-  profitTokenPrice: number
+  profitTokenPrice: number,
+  intermediateToken: string,
+  intermediateTokenPrice: number
 ) => {
   return calculatePNLWithFees(
     frontTrade,
     backTrade,
     profitToken,
-    profitTokenPrice
+    profitTokenPrice,
+    intermediateToken,
+    intermediateTokenPrice
   ).toFixed(3);
 };
