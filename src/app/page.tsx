@@ -1,24 +1,25 @@
-import { HomePage } from "@/app/(pages)/HomePage";
-import { getData } from "@/app/(utils)/database";
-import mongoose from "mongoose";
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import mongoose from "mongoose";
+import { HomePage } from "@/app/(pages)/HomePage";
+import { getDailyProfitChart, getTransactions } from "@/app/(utils)/database";
 
 export default async function Home() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("access_token");
 
   if (accessToken?.value !== process.env.ACCESS_TOKEN) {
-    return (
-      <HomePage
-        initialIsAuthenticated={false}
-        initialData={{ transactions: [] }}
-      />
-    );
+    redirect("/");
   }
 
   await mongoose.connect(process.env.MONGODB_URI ?? "");
+  const transactions = await getTransactions(0);
+  const dailyProfitChart = await getDailyProfitChart();
 
-  const data = await getData(0);
-
-  return <HomePage initialIsAuthenticated={true} initialData={data} />;
+  return (
+    <HomePage
+      initialTransactions={transactions}
+      initialDailyProfitChart={dailyProfitChart}
+    />
+  );
 }

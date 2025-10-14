@@ -1,4 +1,4 @@
-import { getData } from "@/app/(utils)/database";
+import { getTransactions } from "@/app/(utils)/database";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -13,7 +13,8 @@ export async function GET(request: NextRequest) {
 
   await mongoose.connect(process.env.MONGODB_URI ?? "");
 
-  const startAfter = new URL(request.url).searchParams.get("startAfter");
-  const data = await getData(startAfter ? +startAfter : 0);
+  const { searchParams } = new URL(request.url);
+  const page = +(searchParams.get("page") ?? "0");
+  const data = await getTransactions(page);
   return NextResponse.json(data);
 }

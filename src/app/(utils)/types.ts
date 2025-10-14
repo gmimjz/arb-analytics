@@ -19,7 +19,3 @@ export interface Transaction {
   backTrade: Trade;
   createdAt: string;
 }
-
-export interface DataAPIResponse {
-  transactions: Transaction[];
-}
