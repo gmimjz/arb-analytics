@@ -30,15 +30,21 @@ export const HomePage = ({
 
   return (
     <>
-      <div className="flex">
-        <Chart title="Daily Profit" color="#2fc77e" data={dailyProfitChart} />
-        <Chart
-          title="Cumulative Profit"
-          color="#e1554a"
-          data={cumulativeProfitChart}
-        />
+      <div className="lg:flex">
+        <div className="lg:w-1/2">
+          <Chart title="Daily Profit" color="#2fc77e" data={dailyProfitChart} />
+        </div>
+        <div className="lg:w-1/2">
+          <Chart
+            title="Cumulative Profit"
+            color="#e1554a"
+            data={cumulativeProfitChart}
+          />
+        </div>
       </div>
-      <DataTable transactions={transactions} />
+      <div className="overflow-scroll">
+        <DataTable transactions={transactions} />
+      </div>
     </>
   );
 };

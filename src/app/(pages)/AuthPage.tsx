@@ -2,7 +2,7 @@
 
 import { auth } from "@/app/(utils)/api";
 import { Button, TextField } from "@radix-ui/themes";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const AuthPage = () => {

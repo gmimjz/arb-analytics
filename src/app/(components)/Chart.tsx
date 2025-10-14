@@ -21,7 +21,7 @@ export const Chart = memo(({ title, color, data }: Props) => {
   const id = useId();
 
   return (
-    <div className="w-1/2">
+    <>
       <p className="text-3xl font-bold">{title}</p>
       <div className="h-[512px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -51,7 +51,7 @@ export const Chart = memo(({ title, color, data }: Props) => {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </>
   );
 });
 

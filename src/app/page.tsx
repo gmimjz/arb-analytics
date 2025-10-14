@@ -9,7 +9,7 @@ export default async function Home() {
   const accessToken = cookieStore.get("access_token");
 
   if (accessToken?.value !== process.env.ACCESS_TOKEN) {
-    redirect("/");
+    redirect("/auth");
   }
 
   await mongoose.connect(process.env.MONGODB_URI ?? "");
