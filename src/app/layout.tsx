@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ARB Client",
+  title: "ARB Analytics",
   description: "",
 };
 
