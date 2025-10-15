@@ -2,7 +2,7 @@ import { Transaction } from "@/app/(models)/Transaction";
 import { calculatePNLWithFees } from "@/app/(utils)/functions";
 import { Trade, Transaction as TTransaction } from "@/app/(utils)/types";
 
-export const getTransactions = async (page: number) => {
+export const getTransactions = async (page: number, showTxIds: boolean) => {
   const transactions = await Transaction.find({})
     .sort({
       createdAt: -1,
@@ -11,7 +11,20 @@ export const getTransactions = async (page: number) => {
     .limit(50)
     .lean();
 
-  return JSON.parse(JSON.stringify(transactions)) as TTransaction[];
+  const parsedTransactions = JSON.parse(
+    JSON.stringify(transactions)
+  ) as TTransaction[];
+
+  if (!showTxIds) {
+    parsedTransactions.forEach((tx) => {
+      tx.frontTrade.txId = null;
+      tx.backTrade.txId = null;
+    });
+  }
+
+  const count = await Transaction.countDocuments({});
+
+  return { transactions: parsedTransactions, count };
 };
 
 export const getDailyProfitChart = async () => {

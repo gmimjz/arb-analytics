@@ -6,7 +6,10 @@ export default async function Auth() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("access_token");
 
-  if (accessToken?.value === process.env.ACCESS_TOKEN) {
+  if (
+    accessToken?.value === process.env.ACCESS_TOKEN ||
+    accessToken?.value === process.env.ADMIN_ACCESS_TOKEN
+  ) {
     redirect("/");
   }
 

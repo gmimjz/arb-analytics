@@ -12,7 +12,7 @@ type Props = {
   intermediateToken: string;
   realizedAmountFrom: number | null;
   realizedAmountTo: number | null;
-  txId: string;
+  txId: string | null;
   chain: "solana" | "eclipse";
 };
 
@@ -33,7 +33,7 @@ export const Trade = ({
     return (
       <div className="flex gap-2 items-center">
         <span className="text-red-500 font-bold">FAILED</span>{" "}
-        <ExplorerLink txId={txId} chain={chain} />
+        {txId && <ExplorerLink txId={txId} chain={chain} />}
       </div>
     );
   }
@@ -48,7 +48,7 @@ export const Trade = ({
       {formatAmount(realizedAmountTo, decimals[toToken])}
       <TokenIcon token={toToken} />
 
-      <ExplorerLink txId={txId} chain={chain} />
+      {txId && <ExplorerLink txId={txId} chain={chain} />}
     </div>
   );
 };

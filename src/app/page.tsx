@@ -8,17 +8,24 @@ export default async function Home() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("access_token");
 
-  if (accessToken?.value !== process.env.ACCESS_TOKEN) {
+  if (
+    accessToken?.value !== process.env.ACCESS_TOKEN &&
+    accessToken?.value !== process.env.ADMIN_ACCESS_TOKEN
+  ) {
     redirect("/auth");
   }
 
   await mongoose.connect(process.env.MONGODB_URI ?? "");
-  const transactions = await getTransactions(0);
+  const { transactions, count } = await getTransactions(
+    0,
+    accessToken?.value === process.env.ADMIN_ACCESS_TOKEN
+  );
   const dailyProfitChart = await getDailyProfitChart();
 
   return (
     <HomePage
       initialTransactions={transactions}
+      initialTransactionsCount={count}
       initialDailyProfitChart={dailyProfitChart}
     />
   );

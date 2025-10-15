@@ -25,10 +25,7 @@ export const Chart = memo(({ title, color, data }: Props) => {
       <p className="text-3xl font-bold">{title}</p>
       <div className="h-[512px]">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart
-            data={data}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
+          <AreaChart data={data}>
             <defs>
               <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor={color} stopOpacity={0.8} />

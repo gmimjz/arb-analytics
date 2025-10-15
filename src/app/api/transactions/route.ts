@@ -7,7 +7,10 @@ export async function GET(request: NextRequest) {
   if (!token) {
     return NextResponse.json({}, { status: 401 });
   }
-  if (token !== process.env.ACCESS_TOKEN) {
+  if (
+    token !== process.env.ACCESS_TOKEN &&
+    token !== process.env.ADMIN_ACCESS_TOKEN
+  ) {
     return NextResponse.json({}, { status: 403 });
   }
 
@@ -15,6 +18,9 @@ export async function GET(request: NextRequest) {
 
   const { searchParams } = new URL(request.url);
   const page = +(searchParams.get("page") ?? "0");
-  const data = await getTransactions(page);
+  const data = await getTransactions(
+    page,
+    token === process.env.ADMIN_ACCESS_TOKEN
+  );
   return NextResponse.json(data);
 }

@@ -1,3 +1,5 @@
+import { Transaction } from "@/app/(utils)/types";
+
 export const auth = async (accessToken: string) => {
   await fetch("/api/auth", {
     method: "POST",
@@ -6,19 +8,19 @@ export const auth = async (accessToken: string) => {
   });
 };
 
-export const fetchData = async (startAfter: number) => {
+export const fetchTransactions = async (page: number) => {
   const params = new URLSearchParams();
-  params.set("startAfter", startAfter.toString());
+  params.set("page", page.toString());
 
-  const response = await fetch(`/api/data?${params.toString()}`, {
+  const response = await fetch(`/api/transactions?${params.toString()}`, {
     cache: "no-store",
     credentials: "include",
   });
 
   if (!response.ok) {
-    return null;
+    return { transactions: [], count: 0 };
   }
 
   const data = await response.json();
-  return data;
+  return data as { transactions: Transaction[]; count: number };
 };

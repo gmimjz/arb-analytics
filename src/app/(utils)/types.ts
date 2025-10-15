@@ -1,5 +1,5 @@
 export interface Trade {
-  txId: string;
+  txId: string | null;
   amountFrom: number;
   amountTo: number;
   realizedAmountFrom: number;
